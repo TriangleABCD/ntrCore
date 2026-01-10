@@ -1,3 +1,7 @@
+build/
+ntrCore.elf
+ntrCore.bin
+
 # Prerequisites
 *.d
 
