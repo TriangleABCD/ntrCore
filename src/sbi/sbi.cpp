@@ -1,5 +1,7 @@
 #include "sbi.h"
 
+namespace sbi {
+  
 uint64_t sbi_call(uint64_t sbi_type, uint64_t arg0, uint64_t arg1, uint64_t arg2) {
   uint64_t ret;
   __asm__ volatile (
@@ -22,4 +24,6 @@ void console_putchar(unsigned char c) {
 
 void shutdown() {
   sbi_call(static_cast<uint64_t>(SBIType::SBI_SHUTDOWN), 0, 0, 0);
+}
+
 }

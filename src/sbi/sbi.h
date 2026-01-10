@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 #ifndef SBI_H
 #define SBI_H
 
@@ -7,7 +6,9 @@
 
 using std::uint64_t;
 
+namespace sbi {
 enum struct SBIType : uint64_t {
+
   SBI_SET_TIMER = 0,
   SBI_CONSOLE_PUTCHAR = 1,
   SBI_CONSOLE_GETCHAR = 2,
@@ -24,5 +25,7 @@ uint64_t sbi_call(uint64_t sbi_type, uint64_t arg0, uint64_t arg1, uint64_t arg2
 void console_putchar(unsigned char c);
 
 void shutdown();
+
+}
 
 #endif
