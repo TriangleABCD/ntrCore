@@ -1,4 +1,5 @@
 #include "console.h"
+#include "sbi.h"
 
 extern unsigned char sbss[];
 extern unsigned char ebss[];

@@ -15,7 +15,7 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 GDB = $(CROSS_COMPILE)gdb
 
 # 编译选项
-INCLUDE_DIR = -I$(SRC_DIR) -I$(SRC_DIR)/console -I$(SRC_DIR)/sbi -I$(SRC_DIR)/util
+INCLUDE_DIR = -I$(SRC_DIR) -I$(SRC_DIR)/console -I$(SRC_DIR)/sbi -I$(SRC_DIR)/util -I$(SRC_DIR)/syscall
 CFLAGS = -nostdlib -march=rv64gc -mabi=lp64d -mcmodel=medany
 CXXFLAGS = $(CFLAGS) -ffreestanding $(INCLUDE_DIR)
 LINK_SCRIPT = $(SRC_DIR)/linker.ld
