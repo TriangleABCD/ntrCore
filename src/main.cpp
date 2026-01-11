@@ -15,7 +15,7 @@ void clear_bss() {
 
 extern "C" void main() {
   clear_bss();
-  console::printf("Hello, ntrCore!\n");
+  console::printf("[kernel] Hello, ntrCore!\n");
   while (true)
     ;
 }

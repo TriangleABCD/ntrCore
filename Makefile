@@ -38,7 +38,11 @@ QEMU_FLAGS:= -machine virt -nographic -bios $(BOOTLOADER)
 NAME:= ntrCore
 
 ################################
-all: $(NAME).bin
+all: user_bin $(NAME).bin
+
+user_bin:
+	$(MAKE) -C user
+	./scripts/link_app_gen.sh
 
 $(NAME).bin: $(NAME).elf
 	$(OBJCOPY) -O binary $< $@
@@ -72,6 +76,7 @@ gdb:
 		-ex 'tui enable'
 
 clean:
-	rm -rf $(BUILD_DIR) $(NAME).elf $(NAME).bin
+	$(MAKE) -C user clean
+	rm -rf $(BUILD_DIR) $(NAME).elf $(NAME).bin user_bin
 
 .PHONY: clean run all debug gdb
