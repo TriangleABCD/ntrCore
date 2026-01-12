@@ -47,6 +47,18 @@ inline unsigned int itoa(int val, char *buf) {
   return len;
 }
 
+inline void memset(volatile unsigned char * dst, unsigned char val, int n) {
+  for (int i = 0; i < n; i++) {
+    dst[i] = val;
+  }
+}
+
+inline void memcpy(volatile unsigned char * dst, const unsigned char * src, int n) {
+  for (int i = 0; i < n; i++) {
+    dst[i] = src[i];
+  }
+}
+
 }
 
 #endif

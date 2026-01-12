@@ -1,7 +1,8 @@
-#include "sbi.h"
+#include "sbi.hpp"
+
 
 namespace sbi {
-  
+
 uint64_t sbi_call(uint64_t sbi_type, uint64_t arg0, uint64_t arg1, uint64_t arg2) {
   uint64_t ret;
   __asm__ volatile (
@@ -18,15 +19,31 @@ uint64_t sbi_call(uint64_t sbi_type, uint64_t arg0, uint64_t arg1, uint64_t arg2
   return ret;
 }
 
-void console_putchar(unsigned char c) {
-  sbi_call(static_cast<uint64_t>(SBIType::SBI_CONSOLE_PUTCHAR), static_cast<uint64_t>(c), 0, 0);
+uint64_t sbi_call5(uint64_t ext, uint64_t fid,
+                          uint64_t arg0, uint64_t arg1, uint64_t arg2) {
+  uint64_t ret;
+  register uint64_t a0 __asm__("a0") = arg0;
+  register uint64_t a1 __asm__("a1") = arg1;
+  register uint64_t a2 __asm__("a2") = arg2;
+  register uint64_t a6 __asm__("a6") = fid;
+  register uint64_t a7 __asm__("a7") = ext;
+  __asm__ volatile ("ecall"
+                    : "+r"(a0)
+                    : "r"(a1), "r"(a2), "r"(a6), "r"(a7)
+                    : "memory");
+  return a0;
 }
 
-void shutdown() {
-  sbi_call(0x53525354UL, 0UL, 0UL, 0);
-  for (;;) {
-    __asm__ volatile ("wfi");
+void console_putchar(unsigned char c) {
+  uint64_t err = sbi_call(1, c, 0, 0);
+  if (err) {
+    sbi_call5(0, 0, 0, 0, 0);
   }
 }
 
+void shutdown(bool failure) {
+  sbi_call5(0x53525354, 0, failure ? 1 : 0, 0, 0);
+}
+
+  
 }

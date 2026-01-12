@@ -1,5 +1,9 @@
-#include "console.h"
-#include "sbi.h"
+#include "console.hpp"
+#include "sbi.hpp"
+
+using console::printf;
+using sbi::shutdown;
+using sbi::console_putchar;
 
 extern unsigned char sbss[];
 extern unsigned char ebss[];
@@ -15,10 +19,7 @@ void clear_bss() {
 
 extern "C" void main() {
   clear_bss();
-  console::printf("[kernel] Hello, ntrCore!\n");
+  printf("[kernel] Hello, ntrCore!\n");
   while (true)
     ;
 }
-
-int x;
-int y = 2;

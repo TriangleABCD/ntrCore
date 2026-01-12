@@ -1,15 +1,22 @@
-#include "console.h"
-#include "sbi.h"
-#include "string.h"
-#include <stdarg.h>
+#pragma once
+#ifndef CONSOLE_H
+#define CONSOLE_H
 
-static void putchar(char c) {
-  sbi::console_putchar((unsigned char)c);
+#include "sbi.hpp"
+#include "string.hpp"
+#include <cstdarg>
+
+using sbi::console_putchar;
+using string::utoa;
+using string::itoa;
+
+inline static void putchar(char c) {
+  console_putchar((unsigned char)c);
 }
 
 namespace console {
 
-void printf(const char *fmt, ...) {
+inline void printf(const char * fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
 
@@ -24,14 +31,14 @@ void printf(const char *fmt, ...) {
     case 'd': {
       int val = va_arg(ap, int);
       char tmp[12];
-      unsigned int len = string::itoa(val, tmp);
+      unsigned int len = itoa(val, tmp);
       for (unsigned int i = 0; i < len; ++i) putchar(tmp[i]);
       break;
     }
     case 'u': {
       unsigned int val = va_arg(ap, unsigned int);
       char tmp[11];
-      unsigned int len = string::utoa(val, tmp, 10);
+      unsigned int len = utoa(val, tmp, 10);
       for (unsigned int i = 0; i < len; ++i) putchar(tmp[i]);
       break;
     }
@@ -39,7 +46,7 @@ void printf(const char *fmt, ...) {
     case 'X': {
       unsigned int val = va_arg(ap, unsigned int);
       char tmp[9];
-      unsigned int len = string::utoa(val, tmp, 16);
+      unsigned int len = utoa(val, tmp, 16);
       if (*fmt == 'X') {
         for (unsigned int i = 0; i < len; ++i)
           if (tmp[i] >= 'a' && tmp[i] <= 'f') tmp[i] -= 32;
@@ -73,3 +80,5 @@ void printf(const char *fmt, ...) {
 }
 
 }
+
+#endif

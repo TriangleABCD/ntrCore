@@ -15,7 +15,7 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 GDB = $(CROSS_COMPILE)gdb
 
 # 编译选项
-INCLUDE_DIR = -I$(SRC_DIR) -I$(SRC_DIR)/console -I$(SRC_DIR)/sbi -I$(SRC_DIR)/util -I$(SRC_DIR)/syscall
+INCLUDE_DIR = -I$(SRC_DIR) -I$(SRC_DIR)/sbi -I$(SRC_DIR)/util -I$(SRC_DIR)/syscall
 CFLAGS = -nostdlib -march=rv64gc -mabi=lp64d -mcmodel=medany
 CXXFLAGS = $(CFLAGS) -ffreestanding $(INCLUDE_DIR)
 LINK_SCRIPT = $(SRC_DIR)/linker.ld
@@ -63,10 +63,10 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-run: $(NAME).bin
-	$(QEMU) $(QEMU_FLAGS) -device loader,file=$<,addr=0x80200000
+run: user_bin $(NAME).bin
+	$(QEMU) $(QEMU_FLAGS) -device loader,file=$(NAME).bin,addr=0x80200000
 
-debug: $(NAME).bin
+debug: user_bin $(NAME).bin
 	$(QEMU) $(QEMU_FLAGS) -device loader,file=$<,addr=0x80200000 -s -S
 
 gdb:
