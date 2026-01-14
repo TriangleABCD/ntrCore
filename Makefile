@@ -16,7 +16,7 @@ GDB = $(CROSS_COMPILE)gdb
 
 # 编译选项
 INCLUDE_DIR = -I$(SRC_DIR) -I$(SRC_DIR)/sbi -I$(SRC_DIR)/util -I$(SRC_DIR)/syscall -I$(SRC_DIR)/batch -I$(SRC_DIR)/trap
-CFLAGS = -nostdlib -march=rv64gc -mabi=lp64d -mcmodel=medany
+CFLAGS = -nostdlib -march=rv64gc -mabi=lp64d -mcmodel=medany -g
 CXXFLAGS = $(CFLAGS) -ffreestanding $(INCLUDE_DIR)
 LINK_SCRIPT = $(SRC_DIR)/linker.ld
 LDFLAGS = -T $(LINK_SCRIPT) -nostdlib
@@ -67,7 +67,7 @@ run: user_bin $(NAME).bin
 	$(QEMU) $(QEMU_FLAGS) -device loader,file=$(NAME).bin,addr=0x80200000
 
 debug: user_bin $(NAME).bin
-	$(QEMU) $(QEMU_FLAGS) -device loader,file=$<,addr=0x80200000 -s -S
+	$(QEMU) $(QEMU_FLAGS) -device loader,file=$(NAME).bin,addr=0x80200000 -s -S
 
 gdb:
 	$(GDB) -ex 'file $(NAME).elf' \
