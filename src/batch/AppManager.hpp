@@ -35,18 +35,18 @@ struct AppManager {
   }
 
   void print_app_info() {
-    printf("[kernel] num_app = %d\n", this->num_app);
+    INFO("num_app = %d", this->num_app);
     for (int i = 0; i < this->num_app; i++) {
-      printf("[kernel] app_%d [0x%x, 0x%x)\n", i, this->app_start[i], this->app_start[i+1]);
+      INFO("app_%d [0x%x, 0x%x)", i, this->app_start[i], this->app_start[i+1]);
     }
   }
 
   void load_app(int app_id) {
     if (app_id >= this->num_app) {
-      printf("[kernel] All applications complete!\n");
+      INFO("All applications complete!");
       shutdown(false);
     }
-    printf("[kernel] Loading app_%d\n", app_id);
+    INFO("Loading app_%d", app_id);
     string::memset(
       reinterpret_cast<volatile unsigned char*>(APP_BASE_ADDRESS),
       0,

@@ -51,23 +51,23 @@ TrapContext& trap_handler(TrapContext & ctx) {
     }
     case TrapType::StoreFault:
     case TrapType::StorePageFault:
-      printf("[kernel] PageFault in application, kernel killed it.\n");
+      INFO("PageFault in application, kernel killed it.");
       run_next_app();
       break;
 
     case TrapType::StoreAccessFault:
-      printf("[kernel] Store fault in application, kernel killed it.\n");
+      INFO("Store fault in application, kernel killed it.");
       run_next_app();
       break;
 
     case TrapType::IllegalInstruction:
-      printf("[kernel] IllegalInstruction in application, kernel killed it.\n");
+      INFO("IllegalInstruction in application, kernel killed it.");
       run_next_app();
       break;
 
     default:
     unsupported:
-      printf("[kernel] Unsupported trap code=%u, stval=%x\n", exception_code(scause), stval);
+      WARN("Unsupported trap code=%u, stval=%x", exception_code(scause), stval);
       run_next_app();
   }
   return ctx;

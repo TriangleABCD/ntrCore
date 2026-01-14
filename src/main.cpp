@@ -18,7 +18,11 @@ void clear_bss() {
 
 extern "C" void main() {
   clear_bss();
-  printf("[kernel] Hello, ntrCore!\n");
+  TRACE("Hello, ntrCore!");
+  DEBUG("Hello, ntrCore!");
+  INFO("Hello, ntrCore!");
+  WARN("Hello, ntrCore!");
+  ERROR("Hello, ntrCore!");
   appManager.init();
   trap::init();
   batch::init();

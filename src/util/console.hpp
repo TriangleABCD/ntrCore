@@ -81,4 +81,17 @@ inline void printf(const char * fmt, ...) {
 
 }
 
+#define CLR_RED     "\033[31m"
+#define CLR_YELLOW  "\033[93m"
+#define CLR_BLUE    "\033[94m"
+#define CLR_GREEN   "\033[32m"
+#define CLR_GRAY    "\033[90m"
+#define CLR_RESET   "\033[0m"
+
+#define ERROR(...)  (printf(CLR_RED   "[ERROR] " __VA_ARGS__), printf(CLR_RESET "\n"))
+#define WARN(...)   (printf(CLR_YELLOW "[WARN ] " __VA_ARGS__), printf(CLR_RESET "\n"))
+#define INFO(...)   (printf(CLR_BLUE  "[INFO ] " __VA_ARGS__), printf(CLR_RESET "\n"))
+#define DEBUG(...)  (printf(CLR_GREEN "[DEBUG] " __VA_ARGS__), printf(CLR_RESET "\n"))
+#define TRACE(...)  (printf(CLR_GRAY  "[TRACE] " __VA_ARGS__), printf(CLR_RESET "\n"))
+
 #endif
