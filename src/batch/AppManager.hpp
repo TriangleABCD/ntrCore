@@ -21,7 +21,7 @@ extern "C" {
 }
 
 struct AppManager {
-  int num_app = 0;
+  int num_app;
   int cur_app;
   uintptr_t app_start[MAX_APP_NUM + 1];
 

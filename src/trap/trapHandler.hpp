@@ -10,10 +10,11 @@ using std::uint64_t;
 namespace trap {
 
 enum class TrapType : uint64_t {
-    UserEnvCall        = 8,
-    StoreFault         = 6,
-    StorePageFault     = 15,
-    IllegalInstruction = 2,
+  UserEnvCall        = 8,
+  StoreFault         = 6,
+  StorePageFault     = 15,
+  IllegalInstruction = 2,
+  StoreAccessFault   = 7 
 };
  
 void init();

@@ -55,6 +55,11 @@ TrapContext& trap_handler(TrapContext & ctx) {
       run_next_app();
       break;
 
+    case TrapType::StoreAccessFault:
+      printf("[kernel] Store fault in application, kernel killed it.\n");
+      run_next_app();
+      break;
+
     case TrapType::IllegalInstruction:
       printf("[kernel] IllegalInstruction in application, kernel killed it.\n");
       run_next_app();
@@ -62,8 +67,8 @@ TrapContext& trap_handler(TrapContext & ctx) {
 
     default:
     unsupported:
-      printf("Unsupported trap code=%lu, stval=%#lx\n", exception_code(scause), stval);
-      __asm__ volatile("unimp");
+      printf("[kernel] Unsupported trap code=%u, stval=%x\n", exception_code(scause), stval);
+      run_next_app();
   }
   return ctx;
 }

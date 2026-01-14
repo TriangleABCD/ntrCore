@@ -2,11 +2,13 @@
     .section .data
     .global _num_app
 _num_app:
-    .quad 3
+    .quad 5
     .quad app_0_start
     .quad app_1_start
     .quad app_2_start
-    .quad app_2_end
+    .quad app_3_start
+    .quad app_4_start
+    .quad app_4_end
 
     .section .data
     .global app_0_start
@@ -28,4 +30,18 @@ app_1_end:
 app_2_start:
     .incbin "/home/wyy/ntrCore/user/out/02priv_inst.bin"
 app_2_end:
+
+    .section .data
+    .global app_3_start
+    .global app_3_end
+app_3_start:
+    .incbin "/home/wyy/ntrCore/user/out/03priv_csr.bin"
+app_3_end:
+
+    .section .data
+    .global app_4_start
+    .global app_4_end
+app_4_start:
+    .incbin "/home/wyy/ntrCore/user/out/04store_fault.bin"
+app_4_end:
 
