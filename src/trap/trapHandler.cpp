@@ -51,12 +51,12 @@ TrapContext& trap_handler(TrapContext & ctx) {
     }
     case TrapType::StoreFault:
     case TrapType::StorePageFault:
-      printf("[kernel] PageFault in application, kernel killed it.");
+      printf("[kernel] PageFault in application, kernel killed it.\n");
       run_next_app();
       break;
 
     case TrapType::IllegalInstruction:
-      printf("[kernel] IllegalInstruction in application, kernel killed it.");
+      printf("[kernel] IllegalInstruction in application, kernel killed it.\n");
       run_next_app();
       break;
 

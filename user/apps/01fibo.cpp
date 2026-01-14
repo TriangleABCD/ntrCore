@@ -9,5 +9,5 @@ int main() {
   };
 
   int r = fib(fib, 10);
-  printf("fib(10) = %d\n", r);
+  printf("[app] fib(10) = %d\n", r);
 }

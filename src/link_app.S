@@ -2,10 +2,11 @@
     .section .data
     .global _num_app
 _num_app:
-    .quad 2
+    .quad 3
     .quad app_0_start
     .quad app_1_start
-    .quad app_1_end
+    .quad app_2_start
+    .quad app_2_end
 
     .section .data
     .global app_0_start
@@ -20,4 +21,11 @@ app_0_end:
 app_1_start:
     .incbin "/home/wyy/ntrCore/user/out/01fibo.bin"
 app_1_end:
+
+    .section .data
+    .global app_2_start
+    .global app_2_end
+app_2_start:
+    .incbin "/home/wyy/ntrCore/user/out/02priv_inst.bin"
+app_2_end:
 
