@@ -51,17 +51,17 @@ TrapContext& trap_handler(TrapContext & ctx) {
     }
     case TrapType::StoreFault:
     case TrapType::StorePageFault:
-      INFO("PageFault in application, kernel killed it.");
+      WARN("PageFault in application, kernel killed it.");
       run_next_app();
       break;
 
     case TrapType::StoreAccessFault:
-      INFO("Store fault in application, kernel killed it.");
+      WARN("Store fault in application, kernel killed it.");
       run_next_app();
       break;
 
     case TrapType::IllegalInstruction:
-      INFO("IllegalInstruction in application, kernel killed it.");
+      WARN("IllegalInstruction in application, kernel killed it.");
       run_next_app();
       break;
 
